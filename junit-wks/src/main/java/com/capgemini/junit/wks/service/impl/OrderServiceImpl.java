@@ -42,9 +42,7 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Override
 	public BigDecimal calculateTotalPrice(Order order) {
-		return order.getItems().stream()
-				.map(item -> MathHelper.multiply(item.getPrice(), item.getQuantity()))
-				.reduce(BigDecimal.ZERO, BigDecimal::add);
+		throw new UnsupportedOperationException("Ćwiczenie TDD");
 	}
 	
 }
