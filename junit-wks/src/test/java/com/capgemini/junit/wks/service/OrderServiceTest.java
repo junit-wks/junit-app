@@ -108,20 +108,6 @@ public class OrderServiceTest {
 		verifyNoMoreInteractions(orderRepository);
 	}
 	
-	@Test
-	public void testCalculateTotalPrice() {
-		//Given
-		Item item1 = createItem(MathHelper.getDecimal("20.22"), 2, MOUSE);
-		Item item2 = createItem(MathHelper.getDecimal("10.57"), 10, KEYBOARD);	
-		Order order = createOrder(CAPGEMINI, OrderType.PURCHASED, Arrays.asList(item1, item2));
-		
-		//When
-		BigDecimal totalPrice = orderService.calculateTotalPrice(order);
-		
-		//Then
-		assertThat(totalPrice).isEqualTo(MathHelper.getDecimal("146.14"));
-	}
-	
 	private Order createOrder(String customer, OrderType orderType, List<Item> items) {
 		Order order = new Order();
 		order.setCustomer(customer);
