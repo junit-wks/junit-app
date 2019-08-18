@@ -13,7 +13,6 @@ import com.capgemini.junit.wks.document.Order;
 import com.capgemini.junit.wks.document.OrderType;
 import com.capgemini.junit.wks.repository.OrderRepository;
 import com.capgemini.junit.wks.service.OrderService;
-import com.capgemini.junit.wks.util.MathHelper;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -42,9 +41,7 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Override
 	public BigDecimal calculateTotalPrice(Order order) {
-		return order.getItems().stream()
-				.map(item -> MathHelper.multiply(item.getPrice(), item.getQuantity()))
-				.reduce(BigDecimal.ZERO, BigDecimal::add);
+		throw new UnsupportedOperationException("Ćwiczenie TDD");
 	}
 	
 }
