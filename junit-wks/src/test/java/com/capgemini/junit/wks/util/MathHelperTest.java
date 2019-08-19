@@ -37,7 +37,7 @@ public class MathHelperTest {
 		
 	@ParameterizedTest()
 	@CsvSource({"1.1, 22.22, 23.32",
-		"0, -1, -1",
+		" , -1, -1",
 		"1.1, , 1.1",
 		", , 0"})
 	void testAdd(BigDecimal a, BigDecimal b, BigDecimal expected) {
@@ -46,7 +46,7 @@ public class MathHelperTest {
 	
 	@ParameterizedTest()
 	@CsvSource({"1.1, 10, 11.0",
-		"0, -1, 0",
+		" , -1, 0",
 		"1.1, , 0.0",
 		"1.1, -1.1, -1.21",
 		", , 0"})
