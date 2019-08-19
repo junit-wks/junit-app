@@ -39,7 +39,7 @@ public class MathHelperTest {
 		
 	@ParameterizedTest()
 	@CsvSource({"1.1, 22.22, 23.32",
-		"0, -1, -1",
+		" , -1, -1",
 		"1.1, , 1.1",
 		", , 0"})
 	void testAdd(BigDecimal a, BigDecimal b, BigDecimal expected) {
@@ -48,7 +48,7 @@ public class MathHelperTest {
 	
 	@ParameterizedTest()
 	@CsvSource({"1.1, 10, 11.0",
-		"0, -1, 0",
+		" , -1, 0",
 		"1.1, , 0.0",
 		"1.1, -1.1, -1.21",
 		", , 0"})
@@ -71,13 +71,16 @@ public class MathHelperTest {
 	@ParameterizedTest()
 	@CsvSource({"1.1, 1.11, false",
 		"1.11, 1.1, true",
-		"1.1, 1.1, false"})
+		"1.1, 1.1, false",
+		" , 1.1, false",
+		"1.1, , true",
+		" , , false"})
 	void testIsGreater(BigDecimal a, BigDecimal b, boolean expected) {
 		assertEquals(expected, MathHelper.isGreater(a, b));
 	}
 	
 	@Test
-	void testIsGreaterReturnsTrue() {
+	void testIsGreaterWhenFirstValueIsGreaterReturnsTrue() {
 		//Given
 		BigDecimal a = MathHelper.getDecimal(2);
 		BigDecimal b = MathHelper.getDecimal(1);
@@ -90,7 +93,7 @@ public class MathHelperTest {
 	}
 	
 	@Test
-	void testIsGreaterReturnsFalse() {
+	void testIsGreaterWhenSecondValueIsGreaterReturnsFalse() {
 		//Given
 		BigDecimal a = MathHelper.getDecimal(1);
 		BigDecimal b = MathHelper.getDecimal(2);
@@ -103,7 +106,7 @@ public class MathHelperTest {
 	}
 	
 	@Test
-	void testIsGreaterWhenValuesAreEqual() {
+	void testIsGreaterWhenValuesAreEqualReturnsFalse() {
 		//Given
 		BigDecimal a = MathHelper.getDecimal(1);
 		BigDecimal b = MathHelper.getDecimal(1);
@@ -115,10 +118,52 @@ public class MathHelperTest {
 		assertFalse(result);
 	}
 	
+	@Test
+	void testIsGreaterWhenFirstValueIsNullReturnsFalse() {
+		//Given
+		BigDecimal a = null;
+		BigDecimal b = MathHelper.getDecimal(1);
+		
+		//When
+		boolean result = MathHelper.isGreater(a, b);
+		
+		//Then
+		assertFalse(result);
+	}
+	
+	@Test
+	void testIsGreaterWhenSecondValueIsNullReturnsTrue() {
+		//Given
+		BigDecimal a = MathHelper.getDecimal(1);
+		BigDecimal b = null;
+		
+		//When
+		boolean result = MathHelper.isGreater(a, b);
+		
+		//Then
+		assertTrue(result);
+	}
+	
+	@Test
+	void testIsGreaterWhenBothAreNullReturnsFalse() {
+		//Given
+		BigDecimal a = null;
+		BigDecimal b = null;
+		
+		//When
+		boolean result = MathHelper.isGreater(a, b);
+		
+		//Then
+		assertFalse(result);
+	}
+	
 	@ParameterizedTest()
 	@CsvSource({"1.1, 1.11, true",
 		"1.11, 1.1, false",
-		"1.1, 1.1, false"})
+		"1.1, 1.1, false",
+		" , 1.1, true",
+		"1.1, , false",
+		" , , false"})
 	void testIsLess(BigDecimal a, BigDecimal b, boolean expected) {
 		assertEquals(expected, MathHelper.isLess(a, b));
 	}
@@ -126,7 +171,10 @@ public class MathHelperTest {
 	@ParameterizedTest()
 	@CsvSource({"1.1, 1.11, false",
 		"1.11, 1.1, false",
-		"1.1, 1.1, true"})
+		"1.1, 1.1, true",
+		" , 1.1, false",
+		"1.1, , false",
+		" , , true"})
 	void testIsEqual(BigDecimal a, BigDecimal b, boolean expected) {
 		assertEquals(expected, MathHelper.isEqual(a, b));
 	}
